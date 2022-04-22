@@ -1,0 +1,51 @@
+{{ var tblName = cleanString(it.tableName); }}
+
+public class {{=tblName}} {
+   public  {{=tblName}}()
+   {}
+      
+      {{ it.cols.forEach(col => { 
+          var typ = getDataType(col.data_type);
+          var nme = cleanString(titleCase(col.column_name));
+      }}
+      //{{=col.column_name}} Type {{=col.data_type}} 
+      public {{=typ}} {{=nme}} {get;set;} 
+
+      {{ }); }}
+}
+  
+
+{{
+
+function cleanString(string){
+    string = string.replace(/[^a-zA-Z0-9]/g, '_');
+return string;
+
+}
+
+function titleCase(str) {
+  return str.toLowerCase().split(' ').map(function(word) {
+    return (word.charAt(0).toUpperCase() + word.slice(1));
+  }).join(' ');
+}
+
+function getDataType(typ){
+    switch(typ) {
+    case 'bigint':
+        return 'long';
+    case 'datetime':
+        return 'DateTime';
+    case 'int':
+        return 'int';
+    case 'tinyint':
+        return 'short';
+    case 'decimal': 
+        return 'decimal';
+    case 'date':
+        return 'DateTime';
+    default:
+        return 'string';
+    }
+}
+
+}}

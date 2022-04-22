@@ -1,0 +1,10 @@
+export class {{=it.tableName}} {
+    constructor(val) {
+      
+      {{ it.cols.forEach(col => { }}
+      //{{=col.column_name}} Type {{=col.data_type}} 
+      this.{{=col.column_name}} = val.{{=col.column_name}}; 
+      
+      {{ }); }}
+    }
+  }
